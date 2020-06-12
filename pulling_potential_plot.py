@@ -33,15 +33,16 @@ def animation_frame(i):
         line_entry = line.split()
         # skip comments
         first_charactor = line_entry[0]
-        if first_charactor[0] != '#' and first_charactor[0] != '@':
+        if first_charactor[0] != '#' and first_charactor[0] != '@' and len(line_entry) > 1:
             # read data
             force.append(float(line_entry[1]))
             time.append(float(line_entry[0]))
-            # moving mean
-            move_mean = np.convolve(force, np.ones((N,))/N, mode = 'same')
-            # energy calculation
-            energy_one_sum = move_mean * dt * velocity
-            energy = np.cumsum(energy_one_sum)
+
+    # moving mean
+    move_mean = np.convolve(force, np.ones((N,))/N, mode = 'same')
+    # energy calculation
+    energy_one_sum = move_mean * dt * velocity
+    energy = np.cumsum(energy_one_sum)
     
     # pull force
     ax[0].clear()
@@ -55,6 +56,11 @@ def animation_frame(i):
     ax[1].clear()
     ax[1].scatter(time[N-1:-N], energy[N-1:-N], s = 2)
     
+    # proper labels
+    ax[0].set(ylabel = "Force [kJ/mol/nm]")
+    ax[1].set(ylabel = "Work [kJ/mol]")
+    ax[1].set(xlabel = "time [ps]")
+
 # customize title
 if len(sys.argv) > 3:
     fig_title = sys.argv[3]
@@ -68,11 +74,7 @@ velocity = float(sys.argv[2]) #nm/ps
 fig, ax = plt.subplots(2, 1, sharex=True, figsize=(9.5,10))
 fig.suptitle("pulling force and energy along the trajectory " + fig_title)
 
-# proper labels
-ax[0].set(ylabel = "Force [kJ/mol/nm]")
-ax[1].set(ylabel = "Work [kJ/mol]")
-ax[1].set(xlabel = "time [ps]")
 
-animation = FuncAnimation(fig, func=animation_frame, frames=np.arange(1,1000,1), \
-                          interval=1000, repeat=False)
+animation = FuncAnimation(fig, func=animation_frame, \
+                          interval=10000, repeat=False)
 plt.show()
