@@ -34,18 +34,20 @@ def get_average_force(force, N):
 
 # this function finds the time step when searching is over
 def find_end_of_search(force, work):
-    window = 0.01
-    N = int(window / velocity / dt)
-    mean_force = get_average_force(force, N)
-    #manually set the data range
+    # manually set the data range
     #"Enter the cutoff point:\n"
     beginning_time, end_time = [int(a) for a in input().split()]
     if beginning_time:
         beginning_index = int(beginning_time) * 20
         end_index = int(end_time) * 20
+        window = 0.01
     else:
         beginning_index = 0
         end_index = -1
+        window = 0.1
+
+    N = int(window / velocity / dt)
+    mean_force = get_average_force(force, N)
 
     peak = np.amax(mean_force[beginning_index:end_index])
     # shift peak index to start from beginning_index
