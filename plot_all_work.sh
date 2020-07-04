@@ -27,11 +27,9 @@ for run in `ls $RUNS/*pullf.xvg | sort -V`; do
     # name=$(basename $run)
 
     # get rid of extensions
-    # filename=${run%_pullf.xvg}
-    filename=run${RUN}\ ${TITLE}
+    filename=${run%_pullf.xvg}
 
     python $PLOT_SCRIPT $run $VELOCITY $SAVE_FIG ${filename} >> $SEARCH_WORK
-    let RUN=$RUN+1
     #mv $filename.png $RUNS
 
 done
