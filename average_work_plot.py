@@ -73,7 +73,7 @@ def plot_average_work(time, N, runs, mean_work, jarzynski_work, \
                       mean_search_work, plot_search_work, save_figure=False):
     # pull force and pulling work
     fig, ax = plt.subplots(2, 1, sharex=True, figsize=(9.5,10))
-    fig.suptitle("average work, " + fig_title) 
+    fig.suptitle(fig_title) 
     
     # mean work
     ax[0].plot(time[N-1:-N], mean_work[N-1:-N], \
@@ -86,7 +86,7 @@ def plot_average_work(time, N, runs, mean_work, jarzynski_work, \
                      label = "average first passage work = " + \
                      f"{mean_search_work:.0f}" + " kJ/mol", \
                      color='k', linestyle='--')
-    ax[0].legend(loc = 'best')
+    ax[0].legend(loc = 'lower right')
     
     # Jayzynsky mean work
     ax[1].plot(time[N-1:-N], jarzynski_work[N-1:-N], \
@@ -97,7 +97,7 @@ def plot_average_work(time, N, runs, mean_work, jarzynski_work, \
 
     # option to save figure
     if save_figure:
-        plt.savefig(fig_title+".pdf")
+        plt.savefig(fig_title+".jpg")
     else:
         plt.show()
 
