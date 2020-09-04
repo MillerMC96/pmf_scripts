@@ -90,7 +90,7 @@ def plot_average_work(time, N, runs, mean_work, jarzynski_work):
                label = "Jarzynski average work over " + str(runs) + " runs")
     ax[1].set_ylabel("Work [kJ/mol]", fontsize=20)
     ax[1].set_xlabel("time [ps]", fontsize=20)
-    ax[1].legend(loc = 'lower right', fontsize=16)
+    ax[1].legend(loc = 'lower right', fontsize=20)
 
     return ax
 
@@ -101,7 +101,7 @@ def plot_search_work(ax, mean_search_work, work_label, time):
     ax[0].hlines(mean_search_work, xmin=0, xmax=time[-1], \
                  label="passage work", color='k', linestyle='--')
     ax[0].text(time[-1], mean_search_work - spacing, annotation, ha="right", \
-               size=14)
+               size=20)
 
 if __name__ == "__main__":
     # folder that contains all xvgs
