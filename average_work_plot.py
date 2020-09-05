@@ -81,13 +81,13 @@ def plot_average_work(time, N, runs, mean_work, jarzynski_work):
 
     # mean work
     ax[0].plot(time[N-1:-N], mean_work[N-1:-N], \
-               label = "avg. work, " + str(runs) + " runs")
+               label = "avg. work")
     ax[0].set_ylabel("Work [kJ/mol]", fontsize=20)
     plt.setp(ax[0].get_yticklabels(), fontsize=20)
 
     # Jayzynsky mean work
     ax[1].plot(time[N-1:-N], jarzynski_work[N-1:-N], \
-               label = "Jarzynski work, " + str(runs) + " runs")
+               label = "Jarzynski avg.")
     ax[1].set_ylabel("Work [kJ/mol]", fontsize=20)
     ax[1].set_xlabel("time [ps]", fontsize=20)
     ax[1].legend(loc = 'upper left', fontsize=20)
@@ -121,7 +121,7 @@ if __name__ == "__main__":
         search_work_file = sys.argv[4]
 
         # file that contains tail search work
-        tail_work_file = sys.argv[5]
+        # tail_work_file = sys.argv[5]
 
         # total search work
         average_search_work = get_average_search_work_from_file(search_work_file)
@@ -172,7 +172,7 @@ if __name__ == "__main__":
         ax[0].legend(loc = 'lower right', fontsize=20)
         ####plot_search_work(ax, search_work[1], "tail", one_time)
 
-    save_figure = True
+    save_figure = False
     # option to save figure
     if save_figure:
         plt.savefig(fig_title+".jpg", dpi=200)
