@@ -96,14 +96,13 @@ def plot_average_work(time, N, runs, mean_work, jarzynski_work):
 
 def plot_search_work(ax, mean_search_work, work_label, time):
     (bot,top) = ax[0].get_ylim()
-    spacing = 0.10*(top-bot)
-    ####annotation = work_label + " = " + \
-    ####             f"{mean_search_work:.0f}" + " kJ/mol"
+    spacing = 0.05*(top-bot)
+    annotation = work_label + " = " + \
+                 f"{mean_search_work:.0f}" + " kJ/mol"
     hline_label = "avg. 1st passage work"
-    annotation =  f"{mean_search_work:.0f}" + " kJ/mol"
     ax[0].hlines(mean_search_work, xmin=0, xmax=time[-1], \
                  label=hline_label, color='k', linestyle='--')
-    ax[0].text(time[-1], mean_search_work - spacing, annotation, ha="right", \
+    ax[0].text(time[0], mean_search_work + spacing, annotation, ha="left", \
                size=20)
 
 if __name__ == "__main__":
@@ -121,20 +120,20 @@ if __name__ == "__main__":
         search_work_file = sys.argv[4]
 
         # file that contains tail search work
-        # tail_work_file = sys.argv[5]
+        tail_work_file = sys.argv[5]
 
         # total search work
         average_search_work = get_average_search_work_from_file(search_work_file)
         # work for tail
-        ####average_search_work_tail = get_average_search_work_from_file(tail_work_file)
+        average_search_work_tail = get_average_search_work_from_file(tail_work_file)
         # array of two search work
         search_work = []
         search_work.append(average_search_work)
-        ####search_work.append(average_search_work_tail)
+        search_work.append(average_search_work_tail)
 
         # customize title
-        if len(sys.argv) > 5:
-            fig_title = sys.argv[5]
+        if len(sys.argv) > 6:
+            fig_title = sys.argv[6]
         else:
             fig_title = ""
     else:
@@ -170,9 +169,9 @@ if __name__ == "__main__":
     if enable_search_work:
         plot_search_work(ax, search_work[0], "headgroup", one_time)
         ax[0].legend(loc = 'lower right', fontsize=20)
-        ####plot_search_work(ax, search_work[1], "tail", one_time)
+        plot_search_work(ax, search_work[1], "tail", one_time)
 
-    save_figure = True
+    save_figure = False
     # option to save figure
     if save_figure:
         plt.savefig(fig_title+".jpg", dpi=200)
